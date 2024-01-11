@@ -3,9 +3,8 @@ package lst.tpjava;
 
 import Controller.DepartementsController;
 import Controller.EnseignantsController;
+import Controller.EtudiantsController;
 import Controller.FilieresController;
-import Models.Enseignant;
-import services.DB;
 
 import java.util.Scanner;
 
@@ -67,12 +66,12 @@ public class Main {
                 break;
             case 3:EnseignantsController.showMenu();
                 break;
-            case 4:
+            case 4:EtudiantsController.showMenu();
                 break;
             case 5:
                 break;
             default:
-                // code block
+
         }
         switch(option) {
             case 1:
@@ -83,9 +82,9 @@ public class Main {
                 break;
             case 3:EnseignantsController.showMenu();
                 break;
-            case 4:
+            case 4:EtudiantsController.showMenu();
                 break;
-            case 5:
+            case 5:FilieresController.showMenu();
                 break;
             default:
                 // code block
@@ -95,13 +94,6 @@ public class Main {
     }
     public static void main(String[] args) {
 
-        Enseignant enseignant = new Enseignant();
-        enseignant.setNom("Amine");
-        enseignant.setPrenom("Ben Charif");
-        enseignant.setEmail("test@gmail.com");
-        enseignant.setGrade("PES");
-        enseignant.setId(DB.getEnsId());
-        DB.enseignants.add(enseignant);
         showPrincipalMenu();
     }
 

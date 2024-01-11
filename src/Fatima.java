@@ -3,7 +3,6 @@ import services.DB;
 
 import java.sql.*;
 
-
     public class Fatima {
         public static void main(String[] args) {
 
@@ -13,8 +12,8 @@ import java.sql.*;
             try {
                 Connection cx = DriverManager.getConnection(url, user, pwd);
                 System.out.println("Good Connection");
-                String req1 = "CREATE TABLE IF NOT EXISTS Enseignant (\n" +
-                        "idens INT AUTO_INCREMENT PRIMARY KEY, \n" +
+                String req1 = "CREATE TABLE IF NOT EXISTS Enseignants (\n" +
+                        "idEns INT AUTO_INCREMENT PRIMARY KEY, \n" +
                         "nom VARCHAR(50) CHARACTER SET utf8 NULL, \n" +
                         "prenom VARCHAR(50) CHARACTER SET utf8 NULL, \n" +
                         "email VARCHAR(50) CHARACTER SET utf8 NULL, \n" +
@@ -23,7 +22,7 @@ import java.sql.*;
 
                 try (Statement smt = cx.createStatement()) {
                     smt.executeUpdate(req1);
-                    System.out.println("Un nouveau tableau 'enseignant' a été créé avec succès.");
+                    System.out.println("Un nouveau tableau 'Enseignants' a été créé avec succès.");
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -34,21 +33,21 @@ import java.sql.*;
         }
 
 
-        public static void insertEnseigant(Enseignant enseignant, Connection cx) throws SQLException {
-            String query = "INSERT INTO Enseignant (idens,nom,prenom,email,grade) values (?,'Fatima',?,?,?,?)";
+        public static void insertEnseigants(Enseignant enseignant, Connection cx) throws SQLException {
+            String query = "INSERT INTO Enseignants (idens,nom,prenom,email,grade) values (?,'Fatima',?,?,?,?)";
 
             PreparedStatement ps = cx.prepareStatement(query);
 
             ps.setInt(1, DB.getEnsId());
             ps.setString(2, enseignant.getNom());
             ps.setString(3, enseignant.getPrenom());
-            ps.setString(4, enseignant.getEmail());
+            ps.setString(4, enseignant.getEmail());;
             ps.setString(5, enseignant.getGrade());
 
         }
 
 
-        public static void deleteEnseignant(int id, Connection cx) throws SQLException {
+        public static void deleteEnseignants(int id, Connection cx) throws SQLException {
             String query = "DELETE  from Enseignant where id = ?";
             PreparedStatement ps = cx.prepareStatement(query);
             ps.setInt(1, id);
@@ -56,7 +55,22 @@ import java.sql.*;
 
 
         }
- }
+
+        public static void updateEnseignants(int idEns, String Nom, String prenom,String email,String grade, Connection cx) throws SQLException {
+            String query = "UPDATE Enseignant SET Nom = ?, Prenom = ?,email=?,grade=? WHERE idEns = ?";
+            PreparedStatement ps = cx.prepareStatement(query);
+            ps.setInt(1, idEns);
+            ps.setString(2,Nom);
+            ps.setString(3, prenom);
+            ps.setString(4,email);
+            ps.setString(5,grade);
+
+            ps.executeUpdate();
+        }
+
+    }
+
+
 
 
 
